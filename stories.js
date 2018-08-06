@@ -188,7 +188,7 @@ var stories = [
     {
         "title": "Sean&Shannon.Seeprevious.2015.mp3",
         "name": "Sean & Shannon",
-        "subject": "See Previous",
+        "subject": "Anger, Finances, Abuse, Alcohol, Drugs, Rape",
         "date": "2015"
     },
     {
@@ -242,7 +242,7 @@ var stories = [
     {
         "title": "TonyE.Seeprevious.2016.mp3",
         "name": "Tony E",
-        "subject": "See Previous",
+        "subject": "Addiction, Insecurity",
         "date": "2016"
     },
     {
@@ -272,7 +272,7 @@ var stories = [
     {
         "title": "Weston.Seeprevious.2015.mp3",
         "name": "Weston",
-        "subject": "See Previous",
+        "subject": "Insecurity, Sexual Assault, Manipulation",
         "date": "2015"
     }
 ]
