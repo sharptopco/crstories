@@ -16,7 +16,7 @@ function addListItems() {
     let i = 0;
     stories.forEach(item => {
         let storyURL = s3URL + item.title;
-        let sharingURL = windowURL + '?story=' + item.title;
+        let sharingURL = windowURL + '?story=' + btoa(item.title);
         console.log(storyURL);
         if(story === item.title || password === '1MomentStrongSitUnder') {
             $("#stories").append(storyTemplate(item, storyURL, i));
