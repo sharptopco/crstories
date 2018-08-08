@@ -9,16 +9,10 @@ function storyTemplate(item, url, i, shareURL = null, password = null) {
     let line1 = '<h1>' + item.name + ' - ' + item.date + '</h1>'
     let line2 = '<h4>' + item.subject + '</h4>'
     let line3 = ''
-    if (password != null){
-      // line3 = '<p><a href="' + shareURL + '"><span class="story">' + 'Share this Story' + '</span></a></p>';
       line3 = '<p><a href onclick="copyShareLink(\'' + shareURL + '\')"><span class="button">Share this Story</span></a></p>';
-      // line3 = '<p><a href="' + url + '"><span id="listen-now">' + 'Listen Now' + '</span></a></p>';
-    }
-    else{
-      line3 = '<p><a href="' + url + '"><span id="listen-now" class="button">' + 'Listen Now' + '</span></a></p>';
-    }
-    let line4 = '<div id="qrcode' + i + '" class="qrcode"></div>';
-    let lines = '<div class="story"><div class="description">' + line1 + line2 + line3 + '</div><div class="qr">' + line4 + '</div></div>';
+      line4 = '<p><a href="' + url + '"><span id="listen-now" class="button">' + 'Listen Now' + '</span></a></p>';
+    let line5 = '<div id="qrcode' + i + '" class="qrcode"></div>';
+    let lines = '<div class="story"><div class="description">' + line1 + line2 + line3 + line4 + '</div><div class="qr">' + line5 + '</div></div>';
     return lines;
 }
 
