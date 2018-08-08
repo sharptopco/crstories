@@ -45,7 +45,8 @@ var stories = [
         "title": "DebbieO.Codependency.2016.mp3",
         "name": "Debbie O",
         "subject": "Codependency",
-        "date": "2016"
+        "date": "2016",
+        "public": true
     },
     {
         "title": "DebiM.Abuse&SexualImpurity&perfectionism.2018.mp3",
@@ -243,7 +244,8 @@ var stories = [
         "title": "TonyE.Seeprevious.2016.mp3",
         "name": "Tony E",
         "subject": "Addiction, Insecurity",
-        "date": "2016"
+        "date": "2016",
+        "public": true
     },
     {
         "title": "VicB.Anger.2016.mp3",

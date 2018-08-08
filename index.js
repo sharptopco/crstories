@@ -1,9 +1,15 @@
 // Constants
 const s3BaseURL = 'https://s3.amazonaws.com/crstories.org/';
 const windowURL = window.location.href.split('?')[0];
-const storyParam = atob(getFromParameterOrLocalStorage('storyParam'));
+const storyParam = getStoryParam();
 const passwordParam = getParameterByName('password');
 const password = '1MomentStrongSitUnder';
+
+function getStoryParam() {
+    let string = getFromParameterOrLocalStorage('story');
+    const storyParam = string ? atob(string) : null;
+    return storyParam;
+}
 
 function copyShareLink(shareURL) {
     window.prompt("Copy the following link for a sharable page", shareURL);
@@ -55,7 +61,7 @@ function displayStory(story, storyNumber) {
 }
 
 function shouldDisplayStory(story) {
-    return storyParam === story.title || passwordParam === password;
+    return storyParam === story.title || passwordParam === password  || (story.public === true && !storyParam);
 }
 
 function displayStories() {
