@@ -2,7 +2,7 @@
 const s3BaseURL = 'https://s3.amazonaws.com/crstories.org/';
 const windowURL = window.location.href.split('?')[0];
 const storyParam = getStoryParam();
-const passwordParam = getParameterByName('password');
+const passwordParam = getFromParameterOrLocalStorage('password');
 const password = '1MomentStrongSitUnder';
 
 function getStoryParam() {
