@@ -30,8 +30,8 @@ function formatMetadata(story) {
 function formatButtons(shareURL, url) {
     return `
         <div>
-            <a href onclick="copyShareLink('${shareURL}')"><span class="button">Share this Story</span></a>
-            <a href="${url}"><span id="listen-now" class="button">Listen Now</span></a>
+            <a href onclick="copyShareLink('${shareURL}')"><span class="button">Share</span></a>
+            <a href="${url}"><span id="listen-now" class="button">Listen</span></a>
         </div>
     `;
 }
