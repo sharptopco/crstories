@@ -22,7 +22,7 @@ function generateQRCode(qrElementId, sharingURL) {
 
 function formatMetadata(story) {
     return `
-      <h1>${story.name} - ${story.date}</h1>
+      <h2>${story.name}<br />${story.date}</h2>
       <h4>${story.subject}</h4>
     `;
 }

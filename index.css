@@ -1,0 +1,63 @@
+h1 {
+    font-weight: bold;
+}
+
+h4 {
+    font-style: italic;
+}
+
+.qrcode {
+    border: 5px solid white;
+    width:256px;
+    height:256px;
+    margin:1em;
+}
+
+.story {
+    background-color: lightgrey;
+    margin: 1em;
+    border: 10px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.description {
+    width: 325px;
+    text-align: center;
+}
+
+.button {
+    border: 1px solid darkgray;
+    background-color: steelblue;
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 0.3em;
+    border-radius: 10%;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+@media print {
+    .story {page-break-after: always;}
+}
+
+#stories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.notification {
+    margin-top: 1em;
+    background-color: gold;
+    text-align: center;
+    padding: 0.2em;
+}
