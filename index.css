@@ -14,14 +14,15 @@ h4 {
 }
 
 .story {
-    background-color: lightgrey;
+    background-color: #eee;
     margin: 1em;
-    border: 10px solid lightgray;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 300px;
+    border-radius: 10%;
+    padding: 0.5em 0;
 }
 
 .description {
