@@ -104,7 +104,7 @@ function shouldDisplayStory(story) {
 async function displayStories() {
     let stories = await fetch('Stories')
     let subjects = await fetch('Subjects')
-    let subjectHeader = []
+    let subjectHeader = [`<a href="${windowURL}" class="subject-header-item">All</a>`]
     subjects.forEach( subject => {
         subjectMap[subject.id] = subject.name
         subjectHeader.push(`<a href="${windowURL}?subject=${subject.id}" class="subject-header-item">${subject.name}</a>`)
