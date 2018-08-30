@@ -14,7 +14,7 @@ h4 {
 }
 
 .story {
-    background-color: #eee;
+    background-color: #ddd;
     margin: 1em;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ h4 {
     align-items: center;
     min-height: 300px;
     border-radius: 10%;
-    padding: 0.5em 0;
+    padding: 1.1em 0;
 }
 
 .description {
@@ -84,4 +84,18 @@ a:link {
     background-color: gold;
     text-align: center;
     padding: 0.2em;
+}
+
+.story-image {
+    max-width: 256px;
+    max-height: 256px;
+    border-radius: 10%;
+}
+
+#subject-heading {
+    padding: 0 1em;
+}
+
+#player-elements {
+    padding-bottom: 1em;
 }

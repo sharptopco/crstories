@@ -5,6 +5,7 @@ const windowURL = window.location.href.split('?')[0]
 const storyParam = getStoryParam()
 const passwordParam = getFromParameterOrLocalStorage('password')
 const password = '1MomentStrongSitUnder'
+const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
 
 function getStoryParam() {
     let string = getFromParameterOrLocalStorage('story')
@@ -22,17 +23,43 @@ function generateQRCode(qrElementId, sharingURL) {
 }
 
 function formatMetadata(story) {
+    let defaultImageId = {
+        Male : `1CxW_Fkzs5h8dgw1KWtx46bp4wdv8-tNS`,
+        Female : `1CqCImkk68Mz3nEsQgM_Xs2PK98X_c-5w`,
+        Couple : `1D7pP0elF3EqECmmlXb-yddfjlumkRIs4`
+    }
+    
+    console.log(story.gender)
+
+    let driveId = story.hasOwnProperty('imageURL') ? getQueryVariable(story.imageURL, 'id') : defaultImageId[story.gender]
+    console.log(driveId)
+    let imageElements = driveId ? `<div><img class="story-image" src="${driveBaseDownloadURL}${driveId}" /></div>` : ''
+    
     return `
+      ${imageElements}
       <h2>${story.name}<br />${story.date}</h2>
-      <h4>${story.subject}</h4>
+      <h4 id="subject-heading">${story.subject}</h4>
     `
 }
 
-function formatButtons(shareURL, url) {
+function formatControls(story) {
+    let driveId = story.hasOwnProperty('audioURL') ? getQueryVariable(story.audioURL, 'id') : null
+    let playerElements = driveId ? `
+        <div id="player-elements">
+            <audio id="t-rex-roar-loop" controls>
+                <source type="audio/mpeg" src="${driveBaseDownloadURL}${driveId}" style="border: 1px solid black;"/>
+            </audio>
+        </div>
+    ` : ''
+    
+    let readButton = story.hasOwnProperty('textURL') ? `<a href="${story.textURL}" target="_blank"><span id="listen-now" class="button">Read</span></a>` : ''
+    let sharingURL = windowURL + '?storyParam=' + btoa(story.name)
+
     return `
+        ${playerElements}
         <div>
-            <a href onclick="copyShareLink('${shareURL}')"><span class="button">Share</span></a>
-            <a href="${url}"><span id="listen-now" class="button">Listen</span></a>
+            ${readButton}
+            <a href onclick="copyShareLink('${sharingURL}')"><span class="button">Share</span></a>
         </div>
     `
 }
@@ -51,12 +78,11 @@ function formatStory(storyElements, buttonsElements) {
 
 function displayStory(story) {
     let mp3URL = s3BaseURL + story.title
-    let sharingURL = windowURL + '?storyParam=' + btoa(story.title)
-    $("#stories").append(formatStory(formatMetadata(story), formatButtons(sharingURL, mp3URL)))
+    $("#stories").append(formatStory(formatMetadata(story), formatControls(story)))
 }
 
 function shouldDisplayStory(story) {
-    return storyParam === story.title || passwordParam === password  || (story.public === true && !storyParam)
+    return storyParam === story.name || passwordParam === password  || (story.public === true && !storyParam)
 }
 
 async function displayStories() {
@@ -67,10 +93,12 @@ async function displayStories() {
     
     // console.log(`displaying ${stories.length} stories from ${subjects.length} subjects`)
     stories.forEach(story => {
-        subjectsToDisplay = []
-        story.subject.forEach(key => {subjectsToDisplay.push(subjectMap[key])})
-        story.subject = subjectsToDisplay.join(', ')
         if(shouldDisplayStory(story)) {
+            // display subject names
+            subjectsToDisplay = []
+            story.subject.forEach(key => {subjectsToDisplay.push(subjectMap[key])})
+            story.subject = subjectsToDisplay.join(', ')
+            
             displayStory(story)
         }
     })
@@ -88,6 +116,17 @@ function fetch(objectType) {
         })
     })
     
+}
+
+function getQueryVariable(url, variable) {
+    var vars = url.split('?')[1].split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
 }
 
 $(document).ready(function(){
