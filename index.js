@@ -6,6 +6,8 @@ const storyParam = getStoryParam()
 const passwordParam = getFromParameterOrLocalStorage('password')
 const password = '1MomentStrongSitUnder'
 const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
+const subjectParam = getParameterByName('subject')
+var subjectMap = {}
 
 function getStoryParam() {
     let string = getFromParameterOrLocalStorage('story')
@@ -23,17 +25,23 @@ function generateQRCode(qrElementId, sharingURL) {
 }
 
 function formatMetadata(story) {
+    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
+
     let defaultImageId = {
         Male : `1CxW_Fkzs5h8dgw1KWtx46bp4wdv8-tNS`,
         Female : `1CqCImkk68Mz3nEsQgM_Xs2PK98X_c-5w`,
         Couple : `1D7pP0elF3EqECmmlXb-yddfjlumkRIs4`
     }
     
-    console.log(story.gender)
-
-    let driveId = story.hasOwnProperty('imageURL') ? getQueryVariable(story.imageURL, 'id') : defaultImageId[story.gender]
-    console.log(driveId)
+    let driveId = story.hasOwnProperty('imageURL') ? getParameterByName('id', story.imageURL) : defaultImageId[story.gender]
     let imageElements = driveId ? `<div><img class="story-image" src="${driveBaseDownloadURL}${driveId}" /></div>` : ''
+    
+    // display subject names
+    subjectsToDisplay = []
+    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
+    story.subject.forEach(subjectId => {subjectsToDisplay.push(`<a href="${windowURL}?subject=${subjectId}" class="subject-link">${subjectMap[subjectId]}</a>`)})
+    story.subject = subjectsToDisplay.join(', ')
+    
     
     return `
       ${imageElements}
@@ -43,7 +51,7 @@ function formatMetadata(story) {
 }
 
 function formatControls(story) {
-    let driveId = story.hasOwnProperty('audioURL') ? getQueryVariable(story.audioURL, 'id') : null
+    let driveId = story.hasOwnProperty('audioURL') ? getParameterByName('id', story.audioURL) : null
     let playerElements = driveId ? `
         <div id="player-elements">
             <audio id="t-rex-roar-loop" controls>
@@ -82,23 +90,29 @@ function displayStory(story) {
 }
 
 function shouldDisplayStory(story) {
-    return storyParam === story.name || passwordParam === password  || (story.public === true && !storyParam)
+    if(storyParam) {
+        return storyParam === story.name
+    }
+    
+    if (password) {
+        return passwordParam === password && (story.subject.includes(subjectParam) || !subjectParam)
+    }
+    
+    return story.public === true
 }
 
 async function displayStories() {
     let stories = await fetch('Stories')
     let subjects = await fetch('Subjects')
-    let subjectMap = {}
-    subjects.forEach( subject => {subjectMap[subject.id] = subject.name})
-    
-    // console.log(`displaying ${stories.length} stories from ${subjects.length} subjects`)
+    let subjectHeader = []
+    subjects.forEach( subject => {
+        subjectMap[subject.id] = subject.name
+        subjectHeader.push(`<a href="${windowURL}?subject=${subject.id}" class="subject-header-item">${subject.name}</a>`)
+    })
+    $("#stories").append(`<div id="subject-header">${subjectHeader.join('\n')}</div>`)
+
     stories.forEach(story => {
         if(shouldDisplayStory(story)) {
-            // display subject names
-            subjectsToDisplay = []
-            story.subject.forEach(key => {subjectsToDisplay.push(subjectMap[key])})
-            story.subject = subjectsToDisplay.join(', ')
-            
             displayStory(story)
         }
     })
@@ -116,17 +130,6 @@ function fetch(objectType) {
         })
     })
     
-}
-
-function getQueryVariable(url, variable) {
-    var vars = url.split('?')[1].split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-    console.log('Query variable %s not found', variable);
 }
 
 $(document).ready(function(){

@@ -63,8 +63,9 @@ h4 {
     border-radius: 300px;
 }
 
-a:link {
+a:link, a:visited {
     text-decoration: none;
+    color: #000;
 }
 
 @media print {
@@ -98,4 +99,18 @@ a:link {
 
 #player-elements {
     padding-bottom: 1em;
+}
+
+#subject-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.subject-header-item {    
+    background-color: #ddd;
+    padding: 0.2em 0.25em;
+    margin: 0.2em 0.1em;
+    display: inline-block;
 }
