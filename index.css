@@ -106,6 +106,7 @@ a:link, a:visited {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    width: 100%;
 }
 
 .subject-header-item {    

@@ -4,7 +4,7 @@ const storyMetadataURL = 'https://gpzy1rrcwg.execute-api.us-east-1.amazonaws.com
 const windowURL = window.location.href.split('?')[0]
 const storyParam = getStoryParam()
 const passwordParam = getFromParameterOrLocalStorage('password')
-const password = atob('MU1vbWVudFN0cm9uZ1NpdFVuZGVy')
+const password = atob('Y2xpbWIgc3VtbWVyIHNhdGlzZmllZCBwbGFuZQ==') //climb summer satisfied plane
 const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
 const subjectParam = getParameterByName('subject')
 var subjectMap = {}
@@ -25,6 +25,8 @@ function generateQRCode(qrElementId, sharingURL) {
 }
 
 function formatMetadata(story) {
+    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
+
     let defaultImageId = {
         Male : `1CxW_Fkzs5h8dgw1KWtx46bp4wdv8-tNS`,
         Female : `1CqCImkk68Mz3nEsQgM_Xs2PK98X_c-5w`,
@@ -36,6 +38,7 @@ function formatMetadata(story) {
     
     // display subject names
     subjectsToDisplay = []
+    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
     story.subject.forEach(subjectId => {subjectsToDisplay.push(`<a href="${windowURL}?subject=${subjectId}" class="subject-link">${subjectMap[subjectId]}</a>`)})
     story.subject = subjectsToDisplay.join(', ')
     
@@ -58,7 +61,7 @@ function formatControls(story) {
     ` : ''
     
     let readButton = story.hasOwnProperty('textURL') ? `<a href="${story.textURL}" target="_blank"><span id="listen-now" class="button">Read</span></a>` : ''
-    let sharingURL = windowURL + '?story=' + btoa(story.name)
+    let sharingURL = windowURL + '?storyParam=' + btoa(story.name)
 
     return `
         ${playerElements}
@@ -99,9 +102,9 @@ function shouldDisplayStory(story) {
 }
 
 async function displayStories() {
-    let stories = await fetch('Stories')
+    let stories = await fetch('Lessons')
     stories.sort(compareNames)
-    let subjects = await fetch('Subjects')
+    let subjects = await fetch('Lesson Subjects')
     subjects.sort(compareNames)
     let subjectHeader = [`<a href="${windowURL}" class="subject-header-item">All</a>`]
     subjects.forEach( subject => {
@@ -133,11 +136,19 @@ function fetch(objectType) {
 
 $(document).ready(function(){
     displayStories()
-    $('#loading-indicator').hide(2000)
-    $('#story-container').show(1000)
+
+    $('#password-button').click(() => {
+        let passwordAttempt = $('#password').val()
+        window.location.replace(`${windowURL}?password=${passwordAttempt}`)
+    })
+    if(passwordParam === password) {
+        $('#loading-indicator').hide(2000)
+        $('#story-container').show(1000)
+    }
 })
 
-function compareNames(a, b) {
+
+function compareNames(a,b) {
     if (a.name < b.name)
         return -1;
     if (a.name > b.name)
