@@ -138,9 +138,12 @@ $(document).ready(function(){
         let passwordAttempt = $('#password').val()
         window.location.replace(`${windowURL}?password=${passwordAttempt}`)
     })
+
+    $('#loading-indicator').hide(2000)
     if(passwordParam === password) {
-        $('#password-container').hide(2000)
         $('#story-container').show(1000)
+    } else {
+        $('#password-container').show(1000)
     }
 })
 
