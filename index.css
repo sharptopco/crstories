@@ -105,7 +105,7 @@ a:link, a:visited {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: space-evenly;
 }
 
 .subject-header-item {    
