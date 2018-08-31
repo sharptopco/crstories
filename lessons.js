@@ -3,7 +3,7 @@ const s3BaseURL = 'https://s3.amazonaws.com/crstories.org/'
 const storyMetadataURL = 'https://gpzy1rrcwg.execute-api.us-east-1.amazonaws.com/Prod/'
 const windowURL = window.location.href.split('?')[0]
 const storyParam = getStoryParam()
-const passwordParam = getFromParameterOrLocalStorage('password')
+const passwordParam = getFromParameterOrLocalStorage('lessonPassword')
 const password = atob('Y2xpbWIgc3VtbWVyIHNhdGlzZmllZCBwbGFuZQ==')
 const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
 const subjectParam = getParameterByName('subject')
@@ -136,7 +136,7 @@ $(document).ready(function(){
 
     $('#password-button').click(() => {
         let passwordAttempt = $('#password').val()
-        window.location.replace(`${windowURL}?password=${passwordAttempt}`)
+        window.location.replace(`${windowURL}?lessonPassword=${passwordAttempt}`)
     })
 
     $('#loading-indicator').hide(2000)
