@@ -10,7 +10,7 @@ const subjectParam = getParameterByName('subject')
 var subjectMap = {}
 
 function getStoryParam() {
-    let string = getFromParameterOrLocalStorage('story')
+    let string = getParameterByName('story')
     const storyParam = string ? atob(string) : null
     return storyParam
 }
@@ -134,4 +134,6 @@ function fetch(objectType) {
 
 $(document).ready(function(){
     displayStories()
+    $('#loading-indicator').hide(2000)
+    $('#story-container').show(1000)
 })

@@ -114,3 +114,7 @@ a:link, a:visited {
     margin: 0.2em 0.1em;
     display: inline-block;
 }
+
+#loading-indicator {
+    text-align: center;
+}
