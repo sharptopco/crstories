@@ -119,3 +119,7 @@ a:link, a:visited {
 #loading-indicator {
     text-align: center;
 }
+
+#password-container {
+    text-align: center;
+}

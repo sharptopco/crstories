@@ -4,7 +4,7 @@ const storyMetadataURL = 'https://gpzy1rrcwg.execute-api.us-east-1.amazonaws.com
 const windowURL = window.location.href.split('?')[0]
 const storyParam = getStoryParam()
 const passwordParam = getFromParameterOrLocalStorage('password')
-const password = atob('Y2xpbWIgc3VtbWVyIHNhdGlzZmllZCBwbGFuZQ==') //climb summer satisfied plane
+const password = atob('Y2xpbWIgc3VtbWVyIHNhdGlzZmllZCBwbGFuZQ==')
 const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
 const subjectParam = getParameterByName('subject')
 var subjectMap = {}
@@ -25,8 +25,6 @@ function generateQRCode(qrElementId, sharingURL) {
 }
 
 function formatMetadata(story) {
-    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
-
     let defaultImageId = {
         Male : `1CxW_Fkzs5h8dgw1KWtx46bp4wdv8-tNS`,
         Female : `1CqCImkk68Mz3nEsQgM_Xs2PK98X_c-5w`,
@@ -38,7 +36,6 @@ function formatMetadata(story) {
     
     // display subject names
     subjectsToDisplay = []
-    console.log(`story.name ${story.name} | story.subject: ${story.subject}`)
     story.subject.forEach(subjectId => {subjectsToDisplay.push(`<a href="${windowURL}?subject=${subjectId}" class="subject-link">${subjectMap[subjectId]}</a>`)})
     story.subject = subjectsToDisplay.join(', ')
     
@@ -142,7 +139,7 @@ $(document).ready(function(){
         window.location.replace(`${windowURL}?password=${passwordAttempt}`)
     })
     if(passwordParam === password) {
-        $('#loading-indicator').hide(2000)
+        $('#password-container').hide(2000)
         $('#story-container').show(1000)
     }
 })
