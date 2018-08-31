@@ -61,7 +61,7 @@ function formatControls(story) {
     ` : ''
     
     let readButton = story.hasOwnProperty('textURL') ? `<a href="${story.textURL}" target="_blank"><span id="listen-now" class="button">Read</span></a>` : ''
-    let sharingURL = windowURL + '?storyParam=' + btoa(story.name)
+    let sharingURL = windowURL + '?story=' + btoa(story.name)
 
     return `
         ${playerElements}
