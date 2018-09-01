@@ -4,7 +4,7 @@ const storyMetadataURL = 'https://gpzy1rrcwg.execute-api.us-east-1.amazonaws.com
 const windowURL = window.location.href.split('?')[0]
 const storyParam = getStoryParam()
 const passwordParam = getFromParameterOrLocalStorage('lessonPassword')
-const password = atob('Y2xpbWIgc3VtbWVyIHNhdGlzZmllZCBwbGFuZQ==')
+const password = atob('Y3JhdGJyY2M=')
 const driveBaseDownloadURL = 'https://drive.google.com/uc?export=download&id='
 const subjectParam = getParameterByName('subject')
 var subjectMap = {}
